@@ -1,5 +1,13 @@
+mkdir ~.venv
+cd ~.venv
+python3 -m venv testproj_django
+
 for School Mac:
 source ~.venv/testproj_django/bin/activate
 
 to run server
 python manage.py runserver
+
+
+pip freeze > requirements.txt
+pip install -r requirements.txt 
