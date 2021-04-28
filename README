@@ -18,6 +18,8 @@ database:
 python manage.py makemigrations
 python manage.py migrate
 
+for production: python3 manage.py collectstatic
+
 python manage.py sqlmigrate blog 0001 (to see sql code)
 
 Add a post:
