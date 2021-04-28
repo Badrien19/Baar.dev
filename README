@@ -1,13 +1,24 @@
-mkdir ~.venv
-cd ~.venv
+for School Mac:
+
+(one time only)
+mkdir ~/.venv
+cd ~/.venv
 python3 -m venv testproj_django
 
-for School Mac:
-source ~.venv/testproj_django/bin/activate
+(each time)
+source ~/.venv/testproj_django/bin/activate
 
-to run server
+to run server:
 python manage.py runserver
 
+admin:
+python manage.py createsuperuser
 
-pip freeze > requirements.txt
-pip install -r requirements.txt 
+database:
+python manage.py makemigrations
+python manage.py migrate
+
+
+Install same environement:
+pip freeze > requirements.txt (stock les config)
+pip install -r requirements.txt  (install les config)
