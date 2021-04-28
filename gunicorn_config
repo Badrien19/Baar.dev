@@ -1,0 +1,13 @@
+[Unit]
+Description=gunicorn daemon baar.dev
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/var/www/baar.dev/appa
+ExecStart=/root/.venv/baar.dev/bin/gunicorn --access-logfile - --workers 3 --bind 0.0.0.0:8000 appa.wsgi:application
+
+
+[Install]
+WantedBy=multi-user.target
