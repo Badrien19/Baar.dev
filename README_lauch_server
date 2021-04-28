@@ -1,1 +1,60 @@
 
+1 setup vps
+2 setup ovh
+    entrée "A" baar.dev -> ip vps
+    entré "C name" www.baar.dev -> baar.dev.
+3 firewall, accept 22 443 80
+4 setup le vps
+    - install python3 sur le serveur: https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-ubuntu-18-04-quickstart
+    
+    apt update
+    apt upgrade
+    apt install git
+    apt install python3-pip
+    apt install python3-venv
+    
+    mkdir .venv
+    cd .venv
+    python3 -m venv baar.dev
+    source baar.dev/bin/activate
+    
+    
+    - installer et configurer nginx sur le serveur: https://www.digitalocean.com/community/tutorials/comment-installer-nginx-sur-ubuntu-18-04-fr
+    
+    apt install nginx
+    cd /var/www
+    git clone https://github.com/badrien19/baar.men
+    (rm db.sqlite3)
+    pip3 install -r requirements.txt
+    
+    python3 manage.py migrate
+    python3 manage.py collectstatic
+    python3 manage.py runserver
+
+    cd /etc/nginx/sites-available/
+
+    nginx -t
+    service nginx restart
+
+    vim baar.dev
+    ln -s /etc/nginx/sites-available/baar.dev /etc/nginx/sites-enabled/baar.dev
+
+    - securiser nginx (tls/https): https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04-fr
+    
+    apt install certbot python3-certbot-nginx
+    certbot --nginx -d baar.dev -d www.baar.dev
+    
+    
+    - lancer le serveur django avec un daemon gunicorn: https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04-fr (seulement une partie du tuto concerne ca)
+
+    pip install gunicorn
+    cd /etc/systemd/system/
+    vim baar.dev.service
+    systemctl start baar.dev
+    systemctl enable baar.dev
+    systemctl status baar.dev
+
+
+redirect ovh
+nginx ajout baar.men, server_name
+certbot nginx -d baar.men -d www.baar.men
