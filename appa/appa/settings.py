@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'db!wxbm04!yd19*xd1rjn47lzlt6ot7ejwd=1$_xyb2rex!u0g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['baar.dev', 'baar.men']
+ALLOWED_HOSTS = ['baar.dev', 'baar.men', '127.0.0.1']
 
 
 # Application definition
@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
+    'users.apps.UsersConfig',
+    'crispy_forms',
 
 ]
 
@@ -126,3 +128,7 @@ STATIC_ROOT = '/var/www/baar.dev/static'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Crispy settings
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
