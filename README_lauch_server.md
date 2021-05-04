@@ -48,7 +48,8 @@
     vim baar.dev (voir nginx_config)
     ln -s /etc/nginx/sites-available/baar.dev /etc/nginx/sites-enabled/baar.dev
 
-    Securiser nginx (tls/https): https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04-fr
+### Securiser nginx (tls/https):
+[Tuto link's](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04-fr)
     
     apt install certbot python3-certbot-nginx
     certbot --nginx -d baar.dev -d www.baar.dev
