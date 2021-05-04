@@ -71,9 +71,15 @@
 
 # How to make an update
 
+    systemctl stop baar.dev
+    
     git pull
+    pip install -r requirements.txt
     change in setting.py debug to false and allowed host
     python manage.py migrate
     python manage.py collectstatic
-
+    
+    systemctl start baar.dev
+    systemctl status baar.dev
+    
     and should be good!
