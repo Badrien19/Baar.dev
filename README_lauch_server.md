@@ -1,4 +1,6 @@
 
+# How to put your site online
+
 ## 1 setup vps
     
     firewall, accept 22 443 80
@@ -10,7 +12,8 @@
 
 ## 3 setup le vps
     
-    Install python3 sur le serveur: https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-ubuntu-18-04-quickstart
+###    Install python3 sur le serveur:
+[Tuto link's](https://www.digitalocean.com/community/tutorials/how-to-install-python-3-and-set-up-a-programming-environment-on-ubuntu-18-04-quickstart)
     
     apt update
     apt upgrade
@@ -24,7 +27,8 @@
     source baar.dev/bin/activate
     
     
-    Installer et configurer nginx sur le serveur: https://www.digitalocean.com/community/tutorials/comment-installer-nginx-sur-ubuntu-18-04-fr
+### Installer et configurer nginx sur le serveur:
+[Tuto link's](https://www.digitalocean.com/community/tutorials/comment-installer-nginx-sur-ubuntu-18-04-fr)
     
     apt install nginx
     cd /var/www
@@ -50,7 +54,10 @@
     certbot --nginx -d baar.dev -d www.baar.dev
     
     
-    Lancer le serveur django avec un daemon gunicorn: https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04-fr (seulement une partie du tuto concerne ca)
+### Lancer le serveur django avec un daemon gunicorn:
+[Tuto link's](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-20-04-fr)
+    
+    (seulement une partie du tuto concerne ca)
 
     pip install gunicorn
     
@@ -60,8 +67,3 @@
     systemctl start baar.dev
     systemctl enable baar.dev
     systemctl status baar.dev
-
-
-redirect ovh
-nginx ajout baar.men, server_name
-certbot nginx -d baar.men -d www.baar.men
