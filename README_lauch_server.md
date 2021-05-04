@@ -75,6 +75,8 @@
     
     git pull
     pip install -r requirements.txt
+    (pip install django-crispy-forms)
+    (pip install Pillow)
     change in setting.py debug to false and allowed host
     python manage.py migrate
     python manage.py collectstatic
