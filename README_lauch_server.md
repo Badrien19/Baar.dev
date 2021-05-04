@@ -68,3 +68,12 @@
     systemctl start baar.dev
     systemctl enable baar.dev
     systemctl status baar.dev
+
+# How to make an update
+
+    git pull
+    change in setting.py debug to false and allowed host
+    python manage.py migrate
+    python manage.py collectstatic
+
+    and should be good!
