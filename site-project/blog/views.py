@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.views.generic import (
     ListView,
     DetailView,
@@ -8,6 +9,7 @@ from django.views.generic import (
     DeleteView
     )
 from .models import Post
+from users.models import Profile
 # Create your views here.
 
 
@@ -59,3 +61,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin,DeleteView):
 
 def about(request):
 	return render(request, 'blog/about.html')
+
+def fcfw(request):
+	users = Profile.objects.order_by('-elo')
+	return render(request, 'blog/fcfw.html', {'users' : users})

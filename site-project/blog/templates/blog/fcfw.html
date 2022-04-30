@@ -1,0 +1,23 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<h1 align="center">Leaderboard</h1>
+<table class="table table-dark">
+<tr>
+    <td>Pseudo</td>
+    <td>Elo</td>
+    <td>Victory</td>
+    <td>Draw</td>
+    <td>Loose</td>
+</tr>  
+{% for user in users %}
+    <tr>
+        <td>{{user.user}}</td>
+        <td>{{user.elo}}</td>
+        <td>{{user.victory}}</td>
+        <td>{{user.draw}}</td>
+        <td>{{user.loose}}</td>
+        </br>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock content %}
