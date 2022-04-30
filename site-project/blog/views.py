@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.views.generic import (
@@ -10,6 +10,7 @@ from django.views.generic import (
     )
 from .models import Post
 from users.models import Profile
+from .forms import GameForm
 # Create your views here.
 
 
@@ -65,3 +66,44 @@ def about(request):
 def fcfw(request):
 	users = Profile.objects.order_by('-elo')
 	return render(request, 'blog/fcfw.html', {'users' : users})
+
+def createGame(request):
+    form = GameForm()
+    if request.method == 'POST':
+        print ("RESULT: ", request.POST.get('winner'))
+        print ("RESULT: ", request.POST.get('looser'))
+        print ("RESULT: ", request.POST.get('ratio'))
+        
+        ratio = request.POST.get('ratio')
+        winner = Profile.objects.get(user_id=request.POST.get('winner'))
+        print (winner.elo)
+        looser = Profile.objects.get(user_id=request.POST.get('looser'))
+        print (looser.elo)
+
+        #print(int(winner.elo))
+        
+        
+        chance_w = float(int(winner.elo) / (int(winner.elo) + int(looser.elo)))
+        chance_l = float(int(looser.elo) / (int(winner.elo) + int(looser.elo)))
+
+        print('Chance to win (winner - looser) ', chance_w, chance_l)
+
+        winner.elo = float(ratio) * (0 - (float(chance_w)))
+        looser.elo = float(ratio) * (1 - (float(chance_l)))
+
+        print('NEW ELO', winner.elo, looser.elo)
+
+        winner.set_elo(request.POST[winner.elo])
+        winner.save
+        
+        #Profile.objects.get(user_id=request.POST.get('looser')).elo += looser.elo
+        #Profile.objects.get(user_id=request.POST.get('looser')).save
+        #winner.save
+
+        form = GameForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/fcfw')
+
+    context = {'form':form}
+    return render(request, 'blog/game_form.html', context)

@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from users.models import Profile
 
 class Post(models.Model):
     title = models.CharField(max_length=100)
@@ -14,3 +15,8 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
+
+class Game(models.Model):
+    winner = models.ForeignKey(Profile, null=True, on_delete= models.SET_NULL, related_name='winner')
+    looser = models.ForeignKey(Profile, null=True, on_delete= models.SET_NULL, related_name='looser')
+    ratio = models.IntegerField(default=20)
