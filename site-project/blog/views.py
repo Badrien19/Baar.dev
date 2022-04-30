@@ -70,36 +70,34 @@ def fcfw(request):
 def createGame(request):
     form = GameForm()
     if request.method == 'POST':
-        print ("RESULT: ", request.POST.get('winner'))
-        print ("RESULT: ", request.POST.get('looser'))
-        print ("RESULT: ", request.POST.get('ratio'))
+        #print ("RESULT: ", request.POST.get('winner'))
+        #print ("RESULT: ", request.POST.get('looser'))
+        #print ("RESULT: ", request.POST.get('ratio'))
+        #print ("RESULT: ", request.POST.get('draw'))
         
-        ratio = request.POST.get('ratio')
+        draw = request.POST.get('draw')
         winner = Profile.objects.get(user_id=request.POST.get('winner'))
-        print (winner.elo)
         looser = Profile.objects.get(user_id=request.POST.get('looser'))
-        print (looser.elo)
 
-        #print(int(winner.elo))
-        
-        
+
+        if draw:
+            ratio = 5
+            winner.draw += 1
+            looser.draw += 1
+        else:
+            ratio = request.POST.get('ratio')
+            winner.victory += 1
+            looser.loose += 1
+
         chance_w = float(int(winner.elo) / (int(winner.elo) + int(looser.elo)))
         chance_l = float(int(looser.elo) / (int(winner.elo) + int(looser.elo)))
 
-        print('Chance to win (winner - looser) ', chance_w, chance_l)
+        winner.elo = round(float(winner.elo) + float(ratio) * (1 - (float(chance_w))), 2)
+        looser.elo = round(float(looser.elo) + float(ratio) * (0 - (float(chance_l))), 2)
 
-        winner.elo = float(ratio) * (0 - (float(chance_w)))
-        looser.elo = float(ratio) * (1 - (float(chance_l)))
-
-        print('NEW ELO', winner.elo, looser.elo)
-
-        winner.set_elo(request.POST[winner.elo])
-        winner.save
-        
-        #Profile.objects.get(user_id=request.POST.get('looser')).elo += looser.elo
-        #Profile.objects.get(user_id=request.POST.get('looser')).save
-        #winner.save
-
+        winner.save()
+        looser.save()
+ 
         form = GameForm(request.POST)
         if form.is_valid():
             form.save()

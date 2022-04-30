@@ -20,3 +20,4 @@ class Game(models.Model):
     winner = models.ForeignKey(Profile, null=True, on_delete= models.SET_NULL, related_name='winner')
     looser = models.ForeignKey(Profile, null=True, on_delete= models.SET_NULL, related_name='looser')
     ratio = models.IntegerField(default=20)
+    draw = models.BooleanField(default = False)
