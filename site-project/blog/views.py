@@ -9,6 +9,7 @@ from django.views.generic import (
     DeleteView
     )
 from .models import Post
+from .models import Game
 from users.models import Profile
 from .forms import GameForm
 # Create your views here.
@@ -67,6 +68,12 @@ def fcfw(request):
 	users = Profile.objects.order_by('-elo')
 	return render(request, 'blog/fcfw.html', {'users' : users})
 
+def history(request):
+    context = {
+        'games' : reversed(Game.objects.all())
+    }
+    return render(request, 'blog/history.html', context)
+
 def createGame(request):
     form = GameForm()
     if request.method == 'POST':
@@ -100,7 +107,10 @@ def createGame(request):
  
         form = GameForm(request.POST)
         if form.is_valid():
-            form.save()
+            instance = form.save(commit=False)
+            instance.stat_winner = round(float(ratio) * (1 - (float(chance_w))), 2)
+            instance.stat_looser = round(float(ratio) * (0 - (float(chance_l))), 2)
+            instance.save()
             return redirect('/fcfw')
 
     context = {'form':form}

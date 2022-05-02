@@ -21,3 +21,7 @@ class Game(models.Model):
     looser = models.ForeignKey(Profile, null=True, on_delete= models.SET_NULL, related_name='looser')
     ratio = models.IntegerField(default=20)
     draw = models.BooleanField(default = False)
+    date = models.DateTimeField(default=timezone.now, blank=True)
+    stat_winner = models.FloatField(default='0', blank=True)
+    stat_looser = models.FloatField(default='0', blank=True)
+

@@ -1,0 +1,39 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    {% for game in games %}
+    <article class="card">
+        <div class="card-header">
+        <h3>
+            <img class="rounded-circle article-img" src="{{ game.winner.image.url }}">
+            {% if game.draw %}
+                {{ game.winner.user }} vs {{ game.looser.user }}
+            {% else %}
+                <a style="color:rgb(23, 201, 76);">{{ game.winner.user }}</a> vs <a style="color:red;">{{ game.looser.user }}</a>
+            {% endif %}
+            <img class="rounded-circle article-img" src="{{ game.looser.image.url }}">
+            {% if game.draw %}
+                - (Draw)
+            {% endif %}
+        </h3>
+    </div>
+        <p class="card-text">  
+            <table>    
+                <tr> 
+                    <td>{{ game.winner.user }}</td>
+                    <td>{{ game.winner.elo }}</td>
+                    <td>(+{{ game.stat_winner }})</td>
+                </tr>
+                <tr> 
+                    <td>{{ game.looser.user }}</td>
+                    <td>{{ game.looser.elo }}</td>
+                    <td>({{ game.stat_looser }})</td>
+                </tr>
+                <tr>
+                    <td> <small class="text-muted">{{ game.date  | date:"F d Y" }}</small> </td>
+                </tr>
+            </table>
+        </p>   
+    </article>
+</br>
+    {% endfor %}
+{% endblock content %}

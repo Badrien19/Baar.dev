@@ -4,9 +4,11 @@
 
 <form action="" method="POST">
     {% csrf_token %}
-    {{ form|crispy }}
-
-    <input type="submit" name="submit">
+    {{ form.winner|as_crispy_field }}
+    {{ form.looser|as_crispy_field }}
+    {{ form.ratio|as_crispy_field }}
+    {{ form.draw|as_crispy_field }}
+    <input type="submit"  class="btn btn-primary" name="submit">
 </form>
 
 {% endblock content %}

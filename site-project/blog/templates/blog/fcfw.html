@@ -3,6 +3,7 @@
 <h1 align="center">Leaderboard</h1>
 <table class="table table-dark">
 <tr>
+    <td></td>
     <td>Pseudo</td>
     <td>Elo</td>
     <td>Victory</td>
@@ -11,6 +12,7 @@
 </tr>  
 {% for user in users %}
     <tr>
+        <td ALIGN="CENTER" ><img style="width:50px;height:50px;" align="a" class="rounded-circle account-img" src="{{ user.image.url }}"></td>
         <td>{{user.user}}</td>
         <td>{{user.elo}}</td>
         <td>{{user.victory}}</td>

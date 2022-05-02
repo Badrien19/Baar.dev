@@ -17,5 +17,6 @@ urlpatterns = [
 	path('post/new/', PostCreateView.as_view(), name='post-create'),
 	path('about/', views.about, name='blog-about'),
 	path('fcfw/', views.fcfw, name='blog-fcfw'),
+	path('history/', views.history, name='blog-history'),
 	path('createGame/', views.createGame, name='createGame'),
 ]
